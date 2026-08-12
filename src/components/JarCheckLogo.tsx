@@ -11,7 +11,7 @@ interface JarCheckLogoProps {
 // (The .png exports of this logo were corrupted during a prior export
 // and could not be recovered; the SVG is also the sharper choice for
 // a logo anyway, since it scales to any size with no quality loss.)
-const LOGO_SRC = '/images/Logo/jarcheck-logo.svg';
+const LOGO_SRC = '/images/Logo/jarcheck-logo4x.png';
 
 export const JarCheckLogo: React.FC<JarCheckLogoProps> = ({
   variant = 'light',
