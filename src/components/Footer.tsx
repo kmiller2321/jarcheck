@@ -1,133 +1,53 @@
 import React, { useState } from 'react';
-import { Flame, HeartHandshake, AlertTriangle } from 'lucide-react';
-import { JarCheckLogo } from './JarCheckLogo';
-import { ShareSection } from './ShareSection';
+import { Share2, Mail, Link2, Check } from 'lucide-react';
 
-interface FooterProps {
-  onNavigate: (sectionId: string) => void;
-}
+const SITE_URL = 'https://jarcheck.com';
+const SHARE_TEXT = 'JarCheck — check your home canning recipes for safety before you can, get printable labels, a digital pantry, and a new USDA-guided recipe every week.';
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
-  const [isManagingBilling, setIsManagingBilling] = useState(false);
+export const ShareSection: React.FC = () => {
+  const [copied, setCopied] = useState(false);
 
-  const handleManageBilling = async () => {
-    const email = window.prompt('Enter the email you subscribed with to manage your billing:');
-    if (!email) return;
-
-    setIsManagingBilling(true);
+  const handleCopyLink = async () => {
     try {
-      const res = await fetch('/api/stripe/create-portal-session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const data = await res.json();
-      if (res.ok && data.url) {
-        window.location.href = data.url;
-      } else {
-        window.alert(data.error || 'No subscription found for that email.');
-      }
-    } catch (e) {
-      window.alert('Something went wrong opening the billing portal.');
-    } finally {
-      setIsManagingBilling(false);
+      await navigator.clipboard.writeText(SITE_URL);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.prompt('Copy this link:', SITE_URL);
     }
   };
 
+  const shareLinks = [
+    { label: 'Facebook', bg: 'bg-[#1877F2] hover:bg-[#1465d1]', href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SITE_URL)}`, initial: 'f' },
+    { label: 'X', bg: 'bg-black hover:bg-gray-800', href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(SITE_URL)}&text=${encodeURIComponent(SHARE_TEXT)}`, initial: 'X' },
+    { label: 'Pinterest', bg: 'bg-[#E60023] hover:bg-[#c4001d]', href: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(SITE_URL)}&description=${encodeURIComponent(SHARE_TEXT)}`, initial: 'P' },
+  ];
+
   return (
-    <footer className="bg-[#080808] text-gray-400 text-left border-t border-gray-900 pt-16 pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        
-        {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          
-          {/* Brand Info */}
-          <div className="md:col-span-2 space-y-4">
-            <div className="flex items-center space-x-3 cursor-pointer" onClick={() => onNavigate('hero')}>
-              <JarCheckLogo size="md" variant="dark" showTagline={true} />
-            </div>
-
-            <p className="text-xs text-gray-400 max-w-sm leading-relaxed font-normal">
-              The premier AI-assisted USDA food safety platform designed for safe home canning, jam making, pickling, and pressure canning.
-            </p>
-
-            <div className="flex items-center space-x-2 text-xs font-bold text-gray-300">
-              <Flame className="w-4 h-4 text-[#FF8107]" />
-              <span>USDA NCHFP Scientific Safety Engine</span>
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-black uppercase text-white tracking-widest">Platform</h4>
-            <ul className="space-y-2 text-xs font-semibold">
-              <li>
-                <button onClick={() => onNavigate('analyzer')} className="hover:text-white transition-colors">
-                  Safety Shield Analyzer
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('pantry')} className="hover:text-white transition-colors">
-                  Digital Pantry Cloud Logs
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('weekly-recipe')} className="hover:text-white transition-colors">
-                  Weekly Tested Recipe
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate('pricing')} className="hover:text-white transition-colors">
-                  15-Day Free Trial
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Compliance & Standards */}
-          <div className="space-y-3">
-            <h4 className="text-xs font-black uppercase text-white tracking-widest">Safety Guidelines</h4>
-            <ul className="space-y-2 text-xs font-semibold text-gray-400">
-              <li>USDA Complete Guide to Home Canning</li>
-              <li>National Center for Home Food Preservation</li>
-              <li>Acidification & pH Safety Thresholds</li>
-              <li>Altitude Pressure Adjustment Rules</li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Mandatory USDA Safety Disclaimer Notice Box */}
-        <div className="p-6 rounded-3xl bg-gray-950 border border-gray-800 space-y-2">
-          <div className="flex items-center space-x-2 text-[#FF8107]">
-            <AlertTriangle className="w-4 h-4" />
-            <span className="text-xs font-black uppercase tracking-wider">Mandatory Safety Disclaimer</span>
-          </div>
-          <p className="text-xs text-gray-400 leading-relaxed font-normal">
-            JarCheck provides recipe safety analysis based on published USDA and National Center for Home Food Preservation (NCHFP) guidelines. Never alter tested acidity ratios, thickeners, or density parameters in home canning. Home canners assume full responsibility for following proper sterilization, headspace, seal inspection, and processing procedures.
-          </p>
-        </div>
-
-        {/* Share on Social */}
-        <ShareSection />
-
-        {/* Bottom Legal Copyright */}
-        <div className="border-t border-gray-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 font-medium">
-          <p>© {new Date().getFullYear()} JarCheck. All Rights Reserved.</p>
-          <div className="flex items-center space-x-4 mt-2 sm:mt-0">
-            <a href="/privacy.html" className="hover:text-white transition-colors">Privacy Policy</a>
-            <span>•</span>
-            <a href="/terms.html" className="hover:text-white transition-colors">Terms of Service</a>
-            <span>•</span>
-            <a href="/usda-safety-standards.html" className="hover:text-white transition-colors">USDA Safety Standards</a>
-            <span>•</span>
-            <button onClick={handleManageBilling} disabled={isManagingBilling} className="hover:text-white transition-colors underline decoration-dotted">
-              {isManagingBilling ? 'Loading…' : 'Manage Subscription'}
-            </button>
-          </div>
-        </div>
-
+    <div className="p-6 rounded-3xl bg-gray-950 border border-gray-800 space-y-4">
+      <div className="flex items-center space-x-2 text-white">
+        <Share2 className="w-4 h-4 text-[#FF8107]" />
+        <span className="text-xs font-black uppercase tracking-wider">Know someone who cans? Share JarCheck</span>
       </div>
-    </footer>
+
+      <div className="flex flex-wrap items-center gap-3">
+        {shareLinks.map((link) => {
+          return (
+            <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" aria-label={'Share on ' + link.label} className={link.bg + ' w-10 h-10 rounded-full text-white font-black text-sm flex items-center justify-center transition-colors shrink-0'}>
+              {link.initial}
+            </a>
+          );
+        })}
+
+        <a href={'mailto:?subject=' + encodeURIComponent('Check this out: JarCheck') + '&body=' + encodeURIComponent(SHARE_TEXT + '\n\n' + SITE_URL)} aria-label="Share via Email" className="w-10 h-10 rounded-full bg-gray-700 hover:bg-gray-600 text-white flex items-center justify-center transition-colors shrink-0">
+          <Mail className="w-4 h-4" />
+        </a>
+
+        <button onClick={handleCopyLink} className="flex items-center space-x-2 px-4 h-10 rounded-full bg-gray-800 hover:bg-gray-700 text-white text-xs font-bold transition-colors shrink-0">
+          {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Link2 className="w-4 h-4" />}
+          <span>{copied ? 'Copied!' : 'Copy Link'}</span>
+        </button>
+      </div>
+    </div>
   );
 };
