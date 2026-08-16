@@ -8,8 +8,12 @@ const ACTIVE_STATUSES = new Set(["trialing", "active"]);
 // stay under the Hobby plan's 12-function limit. URLs are unchanged --
 // /api/account/status and /api/account/pantry both route here.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const routeParam = req.query.route;
-  const route = Array.isArray(routeParam) ? routeParam[0] : routeParam;
+  // Read the route segment directly from the URL instead of relying on
+  // Vercel to auto-populate req.query.route -- on some deployments that
+  // value doesn't get filled in for plain (non-Next.js) catch-all routes.
+  const urlPath = (req.url || '').split('?')[0];
+  const segments = urlPath.split('/').filter(Boolean);
+  const route = segments[segments.length - 1] || '';
 
   const email = await getAuthedEmail(req);
   if (!email) return res.status(401).json({ error: "Not logged in." });

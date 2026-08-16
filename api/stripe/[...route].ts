@@ -7,8 +7,12 @@ import { getSupabaseAdmin } from "../_lib/supabase.js";
 // limit. webhook.ts stays separate since it needs raw-body handling that
 // would break normal JSON parsing for these two if combined into it.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const routeParam = req.query.route;
-  const route = Array.isArray(routeParam) ? routeParam[0] : routeParam;
+// Read the route segment directly from the URL instead of relying on
+  // Vercel to auto-populate req.query.route -- on some deployments that
+  // value doesn't get filled in for plain (non-Next.js) catch-all routes.
+  const urlPath = (req.url || '').split('?')[0];
+  const segments = urlPath.split('/').filter(Boolean);
+  const route = segments[segments.length - 1] || '';
 
   if (route === "create-checkout-session") return handleCreateCheckoutSession(req, res);
   if (route === "create-portal-session") return handleCreatePortalSession(req, res);

@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from "@vercel/node";
+﻿import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { randomUUID } from "crypto";
 import { getSupabaseAdmin } from "../_lib/supabase.js";
 import { sendEmail } from "../_lib/resend.js";
@@ -12,8 +12,12 @@ import { getOrGenerateWeeklyRecipe } from "../_lib/weeklyRecipe.js";
 // anything under /api/newsletter/* here automatically because of the
 // [...route] filename, and we dispatch on the first path segment below.
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  const routeParam = req.query.route;
-  const route = Array.isArray(routeParam) ? routeParam[0] : routeParam;
+// Read the route segment directly from the URL instead of relying on
+  // Vercel to auto-populate req.query.route -- on some deployments that
+  // value doesn't get filled in for plain (non-Next.js) catch-all routes.
+  const urlPath = (req.url || '').split('?')[0];
+  const segments = urlPath.split('/').filter(Boolean);
+  const route = segments[segments.length - 1] || '';
 
   switch (route) {
     case "subscribe":
