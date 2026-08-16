@@ -106,16 +106,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
         <ShareSection />
 
         <div className="border-t border-gray-900 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-gray-500 font-medium">
-          <p>© {new Date().getFullYear()} JarCheck. All Rights Reserved.</p>
+          <p>(c) {new Date().getFullYear()} JarCheck. All Rights Reserved.</p>
           <div className="flex items-center space-x-4 mt-2 sm:mt-0">
             <a href="/privacy.html" className="hover:text-white transition-colors">Privacy Policy</a>
-            <span>•</span>
+            <span>-</span>
             <a href="/terms.html" className="hover:text-white transition-colors">Terms of Service</a>
-            <span>•</span>
+            <span>-</span>
             <a href="/usda-safety-standards.html" className="hover:text-white transition-colors">USDA Safety Standards</a>
-            <span>•</span>
+            <span>-</span>
             <button onClick={handleManageBilling} disabled={isManagingBilling} className="hover:text-white transition-colors underline decoration-dotted">
-              {isManagingBilling ? 'Loading…' : 'Manage Subscription'}
+              {isManagingBilling ? 'Loading...' : 'Manage Subscription'}
             </button>
           </div>
         </div>
