@@ -108,7 +108,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </p>
         </div>
 
-{/* Share on Social */}
+        {/* Share on Social */}
         <ShareSection />
 
         {/* Bottom Legal Copyright */}
@@ -126,3 +126,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
             </button>
           </div>
         </div>
+
+      </div>
+    </footer>
+  );
+};
