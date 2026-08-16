@@ -44,7 +44,7 @@ export const ShareSection: React.FC = () => {
         <span className="text-xs font-black uppercase tracking-wider">Know someone who cans? Share JarCheck</span>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
+<div className="flex flex-wrap items-center gap-3">
         {shareLinks.map((link) => (
           
             key={link.label}
@@ -57,7 +57,6 @@ export const ShareSection: React.FC = () => {
             {link.initial}
           </a>
         ))}
-
         
           href={`mailto:?subject=${encodeURIComponent('Check this out: JarCheck')}&body=${encodeURIComponent(`${SHARE_TEXT}\n\n${SITE_URL}`)}`}
           aria-label="Share via Email"
