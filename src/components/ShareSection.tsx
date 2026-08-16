@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { Share2, Mail, Link2, Check } from 'lucide-react';
 
 const SITE_URL = 'https://jarcheck.com';
-const SHARE_TEXT = 'JarCheck — check your home canning recipes for safety before you can, get printable labels, a digital pantry, and a new USDA-guided recipe every week.';
-
+const SHARE_TEXT = 'JarCheck - check your home canning recipes for safety before you can, get printable labels, a digital pantry, and a new USDA-guided recipe every week.';
 export const ShareSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
 
