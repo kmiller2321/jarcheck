@@ -129,7 +129,7 @@ export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, pre
           <div className="inline-flex items-center space-x-2 bg-orange-50 border border-[#FF8107]/30 px-4 py-1.5 rounded-full">
             <ShieldCheck className="w-4 h-4 text-[#FF8107]" />
             <span className="text-xs font-extrabold uppercase tracking-wider text-[#FF8107]">
-              USDA Safety Scanner Engine
+              USDA-Guided Safety Scanner Engine
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#0D0D0D] tracking-tight">

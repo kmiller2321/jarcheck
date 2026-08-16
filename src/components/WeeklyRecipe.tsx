@@ -95,7 +95,7 @@ export const WeeklyRecipe: React.FC<WeeklyRecipeProps> = ({
           <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#FF8107]/20 to-amber-500/10 border border-[#FF8107]/40 px-4 py-1.5 rounded-full backdrop-blur-md">
             <Sparkles className="w-4 h-4 text-[#FF8107]" />
             <span className="text-xs font-black uppercase tracking-widest text-[#FF8107]">
-              {isLoadingRecipe ? 'Loading This Week\'s AI-Generated Recipe' : 'Recipe of the Week \u00b7 AI-Generated Fresh Each Week'}
+              {isLoadingRecipe ? 'Loading This Week\'s Recipe...' : 'Recipe of the Week \u00b7 New Recipe Every Monday'}
             </span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
