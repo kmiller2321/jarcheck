@@ -15,6 +15,8 @@ export function getStripeClient(): Stripe | null {
   // type definitions require an exact literal string matching that SDK
   // version. Omitting it lets the SDK use its built-in default, which
   // avoids a TypeScript build break if the package is ever upgraded.
-  cachedClient = new Stripe(secretKey);
+  cachedClient = new Stripe(secretKey, {
+  apiVersion: '2025-03-31.basil' as any,
+});
   return cachedClient;
 }
