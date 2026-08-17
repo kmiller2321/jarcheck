@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ShieldCheck, Archive, Users, PackageSearch, LogOut, CreditCard, Loader2, Sparkles } from 'lucide-react';
 import { SafetyAnalyzer } from './SafetyAnalyzer';
@@ -19,6 +19,7 @@ interface SubscriberDashboardProps {
   onDeleteBatch: (id: string) => void;
   onLogOut: () => void;
   onOpenTrialModal: () => void;
+  initialTab?: DashboardTab;
 }
 
 const TABS: { id: DashboardTab; label: string; icon: React.ElementType }[] = [
@@ -38,9 +39,14 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
   onDeleteBatch,
   onLogOut,
   onOpenTrialModal,
+  initialTab,
 }) => {
-  const [activeTab, setActiveTab] = useState<DashboardTab>('ANALYZER');
+  const [activeTab, setActiveTab] = useState<DashboardTab>(initialTab || 'ANALYZER');
   const [isManagingBilling, setIsManagingBilling] = useState(false);
+
+  useEffect(() => {
+    if (initialTab) setActiveTab(initialTab);
+  }, [initialTab]);
 
   const handleManageBilling = async () => {
     setIsManagingBilling(true);
@@ -67,7 +73,7 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center space-y-3 text-gray-400">
         <Loader2 className="w-8 h-8 animate-spin text-[#FF8107]" />
-        <span className="text-sm font-semibold">Loading your account…</span>
+        <span className="text-sm font-semibold">Loading your account...</span>
       </div>
     );
   }
@@ -102,12 +108,11 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
 
-      {/* Dashboard Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-100">
         <div>
           <span className="text-xs font-black uppercase tracking-widest text-[#FF8107]">Subscriber Dashboard</span>
           <h1 className="text-2xl sm:text-3xl font-black text-gray-900 mt-1">Welcome back!</h1>
-          <p className="text-sm text-gray-500 font-medium">{subscriberEmail} · Full access unlocked, nothing paywalled</p>
+          <p className="text-sm text-gray-500 font-medium">{subscriberEmail} - Full access unlocked, nothing paywalled</p>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -116,7 +121,7 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
             className="flex items-center space-x-2 px-4 py-2.5 rounded-full border border-gray-200 text-xs font-bold text-gray-600 hover:border-gray-300 transition-colors"
           >
             <CreditCard className="w-4 h-4" />
-            <span>{isManagingBilling ? 'Loading…' : 'Manage Billing'}</span>
+            <span>{isManagingBilling ? 'Loading...' : 'Manage Billing'}</span>
           </button>
           <button
             onClick={onLogOut}
@@ -128,7 +133,6 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
         </div>
       </div>
 
-      {/* Tab Switcher */}
       <div className="flex flex-wrap gap-2 mb-10">
         {TABS.map((tab) => {
           const Icon = tab.icon;
@@ -150,8 +154,6 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
         })}
       </div>
 
-      {/* Tab Content -- isTrialActive is forced true throughout since this
-          whole dashboard is only reachable by verified active subscribers. */}
       <div>
         {activeTab === 'ANALYZER' && (
           <SafetyAnalyzer
