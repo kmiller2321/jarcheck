@@ -38,6 +38,7 @@ export default function App() {
   const [isActiveSubscriber, setIsActiveSubscriber] = useState<boolean>(false);
   const [isStatusLoading, setIsStatusLoading] = useState<boolean>(false);
   const [dashboardPantryBatches, setDashboardPantryBatches] = useState<CanningBatch[]>([]);
+  const [dashboardInitialTab, setDashboardInitialTab] = useState<'ANALYZER' | 'PANTRY' | 'ARCHIVE' | 'COMMUNITY'>('ANALYZER');
 
   const subscriberEmail = session?.user?.email || null;
 
@@ -82,7 +83,14 @@ export default function App() {
     setIsStatusLoading(true);
     authFetch('/api/account/status')
       .then((r) => r.json())
-      .then((data) => setIsActiveSubscriber(!!data.isActiveSubscriber))
+      .then((data) => {
+        const active = !!data.isActiveSubscriber;
+        setIsActiveSubscriber(active);
+        if (active) {
+          setIsTrialActive(true);
+          window.localStorage.setItem('jarcheck_trial_active', 'true');
+        }
+      })
       .catch(() => setIsActiveSubscriber(false))
       .finally(() => setIsStatusLoading(false));
 
@@ -148,7 +156,12 @@ export default function App() {
     setActiveSection(sectionId);
 
     if (sectionId === 'pantry') {
-      setCurrentPage('PANTRY');
+      if (subscriberEmail && isActiveSubscriber) {
+        setDashboardInitialTab('PANTRY');
+        setCurrentPage('DASHBOARD');
+      } else {
+        setCurrentPage('PANTRY');
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -232,7 +245,10 @@ export default function App() {
         onNavigate={handleNavigate}
         activeSection={activeSection}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={(page) => {
+          if (page === 'DASHBOARD') setDashboardInitialTab('ANALYZER');
+          setCurrentPage(page);
+        }}
         subscriberEmail={subscriberEmail}
         onOpenAuthModal={() => setIsAuthModalOpen(true)}
       />
@@ -301,6 +317,7 @@ export default function App() {
                 onDeleteBatch={handleDashboardDeleteBatch}
                 onLogOut={handleLogOut}
                 onOpenTrialModal={() => setIsTrialModalOpen(true)}
+                initialTab={dashboardInitialTab}
               />
             ) : (
               <div className="min-h-[70vh] flex items-center justify-center px-4 py-20">
