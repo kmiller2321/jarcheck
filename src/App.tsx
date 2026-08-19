@@ -38,7 +38,7 @@ export default function App() {
   const [isActiveSubscriber, setIsActiveSubscriber] = useState<boolean>(false);
   const [isStatusLoading, setIsStatusLoading] = useState<boolean>(false);
   const [dashboardPantryBatches, setDashboardPantryBatches] = useState<CanningBatch[]>([]);
-  const [dashboardInitialTab, setDashboardInitialTab] = useState<'ANALYZER' | 'PANTRY' | 'ARCHIVE' | 'COMMUNITY'>('ANALYZER');
+  const [dashboardInitialTab, setDashboardInitialTab] = useState<{ tab: 'ANALYZER' | 'PANTRY' | 'ARCHIVE' | 'COMMUNITY' }>({ tab: 'ANALYZER' });
 
   const subscriberEmail = session?.user?.email || null;
 
@@ -157,7 +157,7 @@ export default function App() {
 
     if (sectionId === 'pantry') {
       if (subscriberEmail && isActiveSubscriber) {
-        setDashboardInitialTab('PANTRY');
+        setDashboardInitialTab({ tab: 'PANTRY' });
         setCurrentPage('DASHBOARD');
       } else {
         setCurrentPage('PANTRY');
@@ -246,7 +246,7 @@ export default function App() {
         activeSection={activeSection}
         currentPage={currentPage}
         setCurrentPage={(page) => {
-          if (page === 'DASHBOARD') setDashboardInitialTab('ANALYZER');
+          if (page === 'DASHBOARD') setDashboardInitialTab({ tab: 'ANALYZER' });
           setCurrentPage(page);
         }}
         subscriberEmail={subscriberEmail}

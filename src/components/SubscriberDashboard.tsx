@@ -19,7 +19,7 @@ interface SubscriberDashboardProps {
   onDeleteBatch: (id: string) => void;
   onLogOut: () => void;
   onOpenTrialModal: () => void;
-  initialTab?: DashboardTab;
+  initialTab?: { tab: DashboardTab };
 }
 
 const TABS: { id: DashboardTab; label: string; icon: React.ElementType }[] = [
@@ -41,11 +41,11 @@ export const SubscriberDashboard: React.FC<SubscriberDashboardProps> = ({
   onOpenTrialModal,
   initialTab,
 }) => {
-  const [activeTab, setActiveTab] = useState<DashboardTab>(initialTab || 'ANALYZER');
+  const [activeTab, setActiveTab] = useState<DashboardTab>(initialTab?.tab || 'ANALYZER');
   const [isManagingBilling, setIsManagingBilling] = useState(false);
 
   useEffect(() => {
-    if (initialTab) setActiveTab(initialTab);
+    if (initialTab) setActiveTab(initialTab.tab);
   }, [initialTab]);
 
   const handleManageBilling = async () => {
