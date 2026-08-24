@@ -18,6 +18,8 @@ const FREE_ANALYSIS_STORAGE_KEY = 'jarcheck_free_analyses_used';
 export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, presetToLoad, isTrialActive, onOpenTrialModal }) => {
   const [selectedJarSize, setSelectedJarSize] = useState<string>('Pint (16 oz)');
   const [recipeTitle, setRecipeTitle] = useState('');
+  const [recipeText, setRecipeText] = useState('');
+  const [selectedMethod, setSelectedMethod] = useState('');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<SafetyAnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
