@@ -115,6 +115,15 @@ export const SafetyShieldResult: React.FC<SafetyShieldResultProps> = ({
                 Est. pH: {result.estimatedPh}
               </span>
             </div>
+
+            {result.methodMismatch && (
+              <div className="mt-3 p-3.5 rounded-2xl bg-red-50 border border-red-200 text-left flex items-start space-x-2.5 max-w-md">
+                <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <p className="text-xs font-bold text-red-700 leading-snug">
+                  You selected {result.userSelectedMethod === 'WATER_BATH' ? 'Water Bath' : 'Pressure Canning'}, but this recipe actually requires {getMethodLabel(result.processingMethod)}. Using the wrong method can result in unsafe, under-processed food.
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Animated Circular Safety Shield Gauge */}

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShieldCheck, Sparkles, Loader2, AlertCircle, FileText, CheckCircle2, Flame, RefreshCw, Lock } from 'lucide-react';
+import { ShieldCheck, Sparkles, Loader2, AlertCircle, FileText, CheckCircle2, Flame, RefreshCw, Lock, Droplets, Gauge } from 'lucide-react';
 import { PRESET_RECIPES } from '../data/usdaData';
 import { SafetyAnalysisResult } from '../types';
 import { SafetyShieldResult } from './SafetyShieldResult';
@@ -16,8 +16,11 @@ const FREE_ANALYSIS_LIMIT = 3;
 const FREE_ANALYSIS_STORAGE_KEY = 'jarcheck_free_analyses_used';
 
 export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, presetToLoad, isTrialActive, onOpenTrialModal }) => {
-  const [recipeTitle, setRecipeTitle] = useState('');
-  const [recipeText, setRecipeText] = useState('');
+  const handleAnalyze = async () => {
+    if (!recipeText.trim()) {
+      setError('Please paste or type a canning recipe to analyze.');
+      return;
+    }
   const [selectedJarSize, setSelectedJarSize] = useState<string>('Pint (16 oz)');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<SafetyAnalysisResult | null>(null);
@@ -71,6 +74,7 @@ export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, pre
           title: recipeTitle || 'Custom Canning Recipe',
           recipeText,
           jarSize: selectedJarSize,
+          intendedMethod: selectedMethod,
         }),
       });
 
@@ -225,6 +229,51 @@ export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, pre
                   placeholder="e.g., Grandma's Spiced Berry Preserves"
                   className="w-full px-5 py-3.5 rounded-2xl border border-gray-200 focus:outline-none focus:ring-4 focus:ring-[#FF8107]/20 focus:border-[#FF8107] text-sm font-semibold text-[#0D0D0D] transition-all"
                 />
+              </div>
+
+              {/* Intended Canning Method Selector */}
+              <div className="space-y-2">
+                <label className="text-xs font-black uppercase tracking-wider text-[#0D0D0D] block">
+                  Which Method Do You Plan to Use? *
+                </label>
+                <div className="grid grid-cols-2 gap-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedMethod('WATER_BATH')}
+                    className={`p-4 rounded-2xl border text-left transition-all duration-200 flex items-center space-x-3 ${
+                      selectedMethod === 'WATER_BATH'
+                        ? 'bg-orange-50 border-[#FF8107] ring-2 ring-[#FF8107]/30 shadow-sm'
+                        : 'bg-gray-50/80 hover:bg-gray-100 border-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <Droplets className={`w-5 h-5 ${selectedMethod === 'WATER_BATH' ? 'text-[#FF8107]' : 'text-gray-400'}`} />
+                    <div>
+                      <span className={`text-xs font-black block ${selectedMethod === 'WATER_BATH' ? 'text-[#FF8107]' : 'text-[#0D0D0D]'}`}>
+                        Water Bath
+                      </span>
+                      <span className="text-[10px] font-semibold text-gray-500">High-acid foods</span>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setSelectedMethod('PRESSURE_CANNER')}
+                    className={`p-4 rounded-2xl border text-left transition-all duration-200 flex items-center space-x-3 ${
+                      selectedMethod === 'PRESSURE_CANNER'
+                        ? 'bg-orange-50 border-[#FF8107] ring-2 ring-[#FF8107]/30 shadow-sm'
+                        : 'bg-gray-50/80 hover:bg-gray-100 border-gray-200 text-gray-700'
+                    }`}
+                  >
+                    <Gauge className={`w-5 h-5 ${selectedMethod === 'PRESSURE_CANNER' ? 'text-[#FF8107]' : 'text-gray-400'}`} />
+                    <div>
+                      <span className={`text-xs font-black block ${selectedMethod === 'PRESSURE_CANNER' ? 'text-[#FF8107]' : 'text-[#0D0D0D]'}`}>
+                        Pressure Canning
+                      </span>
+                      <span className="text-[10px] font-semibold text-gray-500">Low-acid foods</span>
+                    </div>
+                  </button>
+                </div>
+                <p className="text-[10px] text-gray-400 font-medium">Not sure? Pick your best guess -- we'll confirm whether it's correct for this recipe.</p>
               </div>
 
               {/* Target Jar Size Selector */}

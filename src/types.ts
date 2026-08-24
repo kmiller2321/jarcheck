@@ -39,6 +39,8 @@ export interface SafetyAnalysisResult {
   mandatoryWarning: string;
   summary: string;
   timestamp: string;
+  userSelectedMethod?: 'WATER_BATH' | 'PRESSURE_CANNER';
+  methodMismatch?: boolean;
 }
 
 export interface CanningBatch {

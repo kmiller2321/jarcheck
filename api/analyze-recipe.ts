@@ -8,10 +8,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { title, recipeText, jarSize = "Pint (16 oz)" } = req.body || {};
+    const { title, recipeText, jarSize = "Pint (16 oz)", intendedMethod } = req.body || {};
     if (!recipeText) {
       return res.status(400).json({ error: "Recipe text is required." });
     }
+
+    const attachMethodCheck = (result: any) => {
+      if (intendedMethod === "WATER_BATH" || intendedMethod === "PRESSURE_CANNER") {
+        result.userSelectedMethod = intendedMethod;
+        result.methodMismatch = result.processingMethod !== "NOT_SAFE" && result.processingMethod !== intendedMethod;
+      }
+      return result;
+    };
 
     const ai = getGeminiClient();
     if (ai) {
@@ -59,7 +67,7 @@ Return a JSON object conforming strictly to this schema:
         if (response.text) {
           const parsed = JSON.parse(response.text);
           parsed.recipeText = recipeText;
-          return res.json(parsed);
+          return res.json(attachMethodCheck(parsed));
         }
       } catch (geminiError) {
         console.warn("Gemini API call failed, falling back to local USDA scanner:", geminiError);
@@ -67,7 +75,7 @@ Return a JSON object conforming strictly to this schema:
     }
 
     const localResult = scanRecipeUSDA(title || "", recipeText, jarSize);
-    return res.json(localResult);
+    return res.json(attachMethodCheck(localResult));
   } catch (err: any) {
     console.error("Error in /api/analyze-recipe:", err);
     return res.status(500).json({ error: "Internal server error analyzing recipe." });
