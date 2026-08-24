@@ -16,11 +16,6 @@ const FREE_ANALYSIS_LIMIT = 3;
 const FREE_ANALYSIS_STORAGE_KEY = 'jarcheck_free_analyses_used';
 
 export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, presetToLoad, isTrialActive, onOpenTrialModal }) => {
-  const handleAnalyze = async () => {
-    if (!recipeText.trim()) {
-      setError('Please paste or type a canning recipe to analyze.');
-      return;
-    }
   const [selectedJarSize, setSelectedJarSize] = useState<string>('Pint (16 oz)');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] = useState<SafetyAnalysisResult | null>(null);
@@ -52,6 +47,11 @@ export const SafetyAnalyzer: React.FC<SafetyAnalyzerProps> = ({ onSaveBatch, pre
   const handleAnalyze = async () => {
     if (!recipeText.trim()) {
       setError('Please paste or type a canning recipe to analyze.');
+      return;
+    }
+
+    if (!selectedMethod) {
+      setError('Please confirm which canning method you plan to use.');
       return;
     }
 
