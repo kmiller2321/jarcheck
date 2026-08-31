@@ -1,0 +1,8 @@
+{
+  "name": "JarCheck Remix",
+  "description": "Safety-first home canning assistant with USDA recipe red flag analyzer, digital pantry logs, and safe canning guidance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

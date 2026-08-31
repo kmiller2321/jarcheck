@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 494.26 113.63">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke-miterlimit: 10;
+        stroke-width: 5.33px;
+      }
+
+      .cls-1, .cls-2 {
+        stroke: #fff;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        font-family: PublicSans-Black, 'Public Sans';
+        font-size: 75.86px;
+        font-weight: 800;
+      }
+
+      .cls-5, .cls-6, .cls-7 {
+        fill: #ff8107;
+      }
+
+      .cls-8 {
+        fill: #999;
+        font-family: PublicSans-Medium, 'Public Sans';
+        font-size: 24.54px;
+        font-weight: 500;
+      }
+
+      .cls-9 {
+        fill: #fff;
+      }
+
+      .cls-2 {
+        stroke-width: 9px;
+      }
+
+      .cls-2, .cls-3 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .cls-6 {
+        letter-spacing: .01em;
+      }
+
+      .cls-7, .cls-10 {
+        letter-spacing: 0em;
+      }
+
+      .cls-3 {
+        stroke: #ff8107;
+        stroke-width: 14px;
+      }
+
+      .cls-11 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-12 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-13 {
+        letter-spacing: -.02em;
+      }
+
+      .cls-14 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-15 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-16 {
+        letter-spacing: -.05em;
+      }
+
+      .cls-17 {
+        letter-spacing: 0em;
+      }
+
+      .cls-18 {
+        letter-spacing: 0em;
+      }
+
+      .cls-19 {
+        letter-spacing: 0em;
+      }
+
+      .cls-20 {
+        letter-spacing: -.01em;
+      }
+
+      .cls-21 {
+        letter-spacing: .01em;
+      }
+
+      .cls-22 {
+        letter-spacing: 0em;
+      }
+    </style>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-5" y="8.99" width="104.64" height="104.64" rx="14.69" ry="14.69"/>
+    <g id="Jar">
+      <rect class="cls-1" x="26.01" y="36.63" width="52.62" height="61.11" rx="9.62" ry="9.62"/>
+      <rect class="cls-9" x="30.08" y="27.77" width="44.48" height="7.59"/>
+      <rect class="cls-9" x="28.21" y="24.19" width="48.22" height="3.58"/>
+    </g>
+  </g>
+  <g id="Layer_5" data-name="Layer 5">
+    <polyline class="cls-3" points="39.78 65.96 53.4 81.13 92.64 41.78"/>
+    <text class="cls-4" transform="translate(124.86 65.35)"><tspan class="cls-7" x="0" y="0">ja</tspan><tspan class="cls-6" x="68.62" y="0">r</tspan><tspan class="cls-10" x="102.26" y="0">check</tspan></text>
+    <polyline class="cls-2" points="39.78 65.96 53.4 81.13 92.64 41.78"/>
+    <text class="cls-8" transform="translate(124.86 101.97)"><tspan x="0" y="0">F</tspan><tspan class="cls-18" x="14.7" y="0">r</tspan><tspan x="24.29" y="0">om </tspan><tspan class="cls-13" x="65.49" y="0">R</tspan><tspan x="81.8" y="0">e</tspan><tspan class="cls-17" x="95.78" y="0">c</tspan><tspan class="cls-22" x="109.01" y="0">i</tspan><tspan x="115.34" y="0">p</tspan><tspan class="cls-17" x="130.03" y="0">e</tspan><tspan x="143.87" y="0"> </tspan><tspan class="cls-14" x="149.71" y="0">t</tspan><tspan class="cls-17" x="159.09" y="0">o</tspan><tspan x="172.89" y="0"> </tspan><tspan class="cls-20" x="178.73" y="0">P</tspan><tspan x="194.21" y="0">a</tspan><tspan class="cls-12" x="207.87" y="0">n</tspan><tspan x="221.63" y="0">t</tspan><tspan class="cls-21" x="231.37" y="0">r</tspan><tspan class="cls-16" x="241.42" y="0">y</tspan><tspan class="cls-17" x="253.5" y="0">.</tspan><tspan x="259.18" y="0"> </tspan><tspan class="cls-19" x="265.03" y="0">S</tspan><tspan class="cls-15" x="281.51" y="0">a</tspan><tspan class="cls-17" x="294.82" y="0">f</tspan><tspan x="304.4" y="0">e</tspan><tspan class="cls-11" x="318.38" y="0">l</tspan><tspan class="cls-16" x="325.46" y="0">y</tspan><tspan class="cls-17" x="337.55" y="0">.</tspan></text>
+  </g>
+</svg>
